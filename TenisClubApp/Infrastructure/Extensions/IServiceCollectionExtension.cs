@@ -66,15 +66,12 @@ namespace eUpisi.Api.Infrastructure.Extensions
                 repositoryImplementation.MakeGenericType(model);
                 services.AddScoped(repositoryInterface, repositoryImplementation);
             }
-
-            //services.AddScoped(ITrackableRepository<Holiday>, TrackableRepository<Holiday>);
         }
 
         private static IEnumerable<Type> GetAllModels()
         {
-
-            Assembly assembly = Assembly.GetAssembly(typeof(Holiday));
             Type trackableInterface = typeof(ITrackable);
+            Assembly assembly = Assembly.GetAssembly(typeof(ITrackable));
             return assembly.GetTypes().Where(t => trackableInterface.IsAssignableFrom(t)).ToList();
         }
 

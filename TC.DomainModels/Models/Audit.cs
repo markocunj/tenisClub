@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TC.DomainModels
+namespace TC.DomainModels.Models
 {
     [Table("AuditLog", Schema = "dbo")]
     public class Audit : BaseEntityBasic

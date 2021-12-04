@@ -13,11 +13,20 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TC.DomainModels.Models;
 
 namespace TC.DomainModels
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<Court> Courts { get; set; }
+        public DbSet<Locker> Lockers { get; set; }
+        public DbSet<Match> Matches { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<MemberAddress> MemberAddresses { get; set; }
+        public DbSet<MemberMatch> MemberMatches { get; set; }
+        public DbSet<MembershipType> MembershipTypes{ get; set; }
 
         public DbSet<Audit> Audits { get; set; }
 
