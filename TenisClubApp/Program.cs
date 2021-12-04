@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TC.DAL.SeedData;
 
 namespace TenisClubApp
 {
@@ -47,7 +48,8 @@ namespace TenisClubApp
                     myDbContext.Database.EnsureCreated();
 
                     //SEED
-
+                    CourtSeed.SeedCourts(myDbContext);
+                    MembershipTypesSeed.SeedMembershipTypes(myDbContext);
                 }
                 host.Run();
 

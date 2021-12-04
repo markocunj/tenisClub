@@ -7,9 +7,6 @@ namespace TC.DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "dbo");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -50,47 +47,6 @@ namespace TC.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuditLog",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TableName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    KeyValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OldValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NewValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditLog", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Bills",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BillIssued = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DueOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cost = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bills", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Courts",
                 columns: table => new
                 {
@@ -108,6 +64,27 @@ namespace TC.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MembershipTypes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnnualFees = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MembershipTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,35 +194,6 @@ namespace TC.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MembershipTypes",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BillId = table.Column<int>(type: "int", nullable: false),
-                    BillId1 = table.Column<long>(type: "bigint", nullable: true),
-                    AnnualFees = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MembershipTypes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MembershipTypes_Bills_BillId1",
-                        column: x => x.BillId1,
-                        principalTable: "Bills",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Matches",
                 columns: table => new
                 {
@@ -269,6 +217,36 @@ namespace TC.DAL.Migrations
                         name: "FK_Matches_Courts_CourtId1",
                         column: x => x.CourtId1,
                         principalTable: "Courts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bills",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BillIssued = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cost = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MembershipTypeId = table.Column<int>(type: "int", nullable: false),
+                    MembershipTypeId1 = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bills", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bills_MembershipTypes_MembershipTypeId1",
+                        column: x => x.MembershipTypeId1,
+                        principalTable: "MembershipTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -441,6 +419,11 @@ namespace TC.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bills_MembershipTypeId1",
+                table: "Bills",
+                column: "MembershipTypeId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lockers_MemberId1",
                 table: "Lockers",
                 column: "MemberId1");
@@ -469,11 +452,6 @@ namespace TC.DAL.Migrations
                 name: "IX_Members_MembershipTypeId1",
                 table: "Members",
                 column: "MembershipTypeId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MembershipTypes_BillId1",
-                table: "MembershipTypes",
-                column: "BillId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -494,8 +472,7 @@ namespace TC.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AuditLog",
-                schema: "dbo");
+                name: "Bills");
 
             migrationBuilder.DropTable(
                 name: "Lockers");
@@ -523,9 +500,6 @@ namespace TC.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "MembershipTypes");
-
-            migrationBuilder.DropTable(
-                name: "Bills");
         }
     }
 }

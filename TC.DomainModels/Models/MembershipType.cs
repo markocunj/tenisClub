@@ -10,8 +10,6 @@ namespace TC.DomainModels.Models
     public class MembershipType : BaseEntity
     {
         public string Name { get; set; }
-        public int BillId { get; set; }
-        public Bill Bill { get; set; }
         public string AnnualFees { get; set; }
     }
 }

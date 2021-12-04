@@ -219,36 +219,6 @@ namespace TC.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TC.DomainModels.Models.Audit", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTimeOffset>("DateTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("KeyValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditLog", "dbo");
-                });
-
             modelBuilder.Entity("TC.DomainModels.Models.Bill", b =>
                 {
                     b.Property<long>("Id")
@@ -283,10 +253,18 @@ namespace TC.DAL.Migrations
                     b.Property<DateTimeOffset?>("LastModified")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("MembershipTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("MembershipTypeId1")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MembershipTypeId1");
 
                     b.ToTable("Bills");
                 });
@@ -589,12 +567,6 @@ namespace TC.DAL.Migrations
                     b.Property<string>("AnnualFees")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BillId")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("BillId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -620,8 +592,6 @@ namespace TC.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BillId1");
 
                     b.ToTable("MembershipTypes");
                 });
@@ -677,6 +647,15 @@ namespace TC.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TC.DomainModels.Models.Bill", b =>
+                {
+                    b.HasOne("TC.DomainModels.Models.MembershipType", "MembershipType")
+                        .WithMany()
+                        .HasForeignKey("MembershipTypeId1");
+
+                    b.Navigation("MembershipType");
+                });
+
             modelBuilder.Entity("TC.DomainModels.Models.Locker", b =>
                 {
                     b.HasOne("TC.DomainModels.Models.Member", "Member")
@@ -726,15 +705,6 @@ namespace TC.DAL.Migrations
                     b.Navigation("Match");
 
                     b.Navigation("Member");
-                });
-
-            modelBuilder.Entity("TC.DomainModels.Models.MembershipType", b =>
-                {
-                    b.HasOne("TC.DomainModels.Models.Bill", "Bill")
-                        .WithMany()
-                        .HasForeignKey("BillId1");
-
-                    b.Navigation("Bill");
                 });
 #pragma warning restore 612, 618
         }

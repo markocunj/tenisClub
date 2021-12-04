@@ -12,5 +12,7 @@ namespace TC.DomainModels.Models
         public DateTime BillIssued { get; set; }
         public DateTime DueOn { get; set; }
         public string Cost { get; set; }
+        public int MembershipTypeId { get; set; }
+        public MembershipType MembershipType { get; set; }
     }
 }

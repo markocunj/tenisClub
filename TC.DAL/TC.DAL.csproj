@@ -18,8 +18,4 @@
     <ProjectReference Include="..\TC.Services\TC.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SeedData\" />
-  </ItemGroup>
-
 </Project>
