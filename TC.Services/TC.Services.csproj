@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="RequestModels\**" />
+    <Compile Remove="ServiceModels\**" />
+    <EmbeddedResource Remove="RequestModels\**" />
+    <EmbeddedResource Remove="ServiceModels\**" />
+    <None Remove="RequestModels\**" />
+    <None Remove="ServiceModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AutomapperProfiles\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.2.0" />
+    <PackageReference Include="GSF.Core" Version="2.3.302" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Azure" Version="1.1.1" />
+    <PackageReference Include="URF.Core.Services" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TC.DomainModels\TC.DomainModels.csproj" />
+    <ProjectReference Include="..\TC.Shared\TC.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
