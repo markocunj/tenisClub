@@ -27,6 +27,7 @@ namespace TC.DomainModels
         public DbSet<MemberAddress> MemberAddresses { get; set; }
         public DbSet<MemberMatch> MemberMatches { get; set; }
         public DbSet<MembershipType> MembershipTypes{ get; set; }
+        public DbSet<News> News { get; set; }
 
 
         private readonly IHttpContextAccessor _httpContextAccessor;
