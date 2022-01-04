@@ -59,7 +59,7 @@ namespace TC.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Match match)
         {
-            var overlap = _context.Matches.Any(a => a.DateAndStartTime < match.DateAndEndTime && match.DateAndStartTime < a.DateAndEndTime && match.CourtId == a.CourtId);
+            var overlap = _context.Matches.Any(a => (a.DateAndStartTime < match.DateAndEndTime && match.DateAndStartTime < a.DateAndEndTime) && (match.CourtId == a.CourtId));
 
             if (!overlap)
             {
@@ -69,6 +69,7 @@ namespace TC.MVC.Controllers
             }
 
             match.ErrorMessage = "Teren koji pokusavate rezervirati je zauzet, pokusajte drugi termin ili drugi teren.";
+            ViewBag.Courts = FillDropdownCourts();
             return View(match);
         }
 
