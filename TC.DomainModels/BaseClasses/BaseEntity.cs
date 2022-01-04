@@ -17,6 +17,7 @@ namespace TC.DomainModels.BaseClasses
             IsDeleted = false;
         }
 
+        public string ErrorMessage { get; set; }
         /// <summary>
         /// 
         /// </summary>

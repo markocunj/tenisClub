@@ -27,18 +27,6 @@ namespace eUpisi.Api.Infrastructure.Extensions
       
         public static void RegisterServices(this IServiceCollection services)
         {
-            //var models = GetAllMarkedServices();
-            //foreach (var model in models)
-            //{
-            //    Type serviceInterface = model.GetInterface($"I{model.Name}");
-            //    if (serviceInterface != null)
-            //    {
-            //        services.AddScoped(serviceInterface, model);
-            //    }
-            //}
-
-
-            //services.AddScoped<IHolidayService, HolidayService>();
 
         }
 

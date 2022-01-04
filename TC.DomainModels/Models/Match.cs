@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,11 @@ namespace TC.DomainModels.Models
 {
     public class Match : BaseEntity
     {
-        public DateTime DateOfMatch { get; set; }
+        [Required]
+        public DateTime DateAndStartTime { get; set; }
+        [Required]
+        public DateTime DateAndEndTime { get; set; }
+        [Required]
         public int CourtId { get; set; }
         public Court Court { get; set; }
     }

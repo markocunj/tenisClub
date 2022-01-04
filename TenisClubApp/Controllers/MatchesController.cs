@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TC.DomainModels;
 using TC.DomainModels.Models;
+using TC.Services.DTOs;
 
 namespace TC.MVC.Controllers
 {
@@ -46,6 +47,8 @@ namespace TC.MVC.Controllers
         // GET: Matches/Create
         public IActionResult Create()
         {
+            ViewBag.Courts = FillDropdownCourts();
+
             return View();
         }
 
@@ -54,14 +57,18 @@ namespace TC.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateOfMatch,CourtId,IsDeleted,DateDeleted,DeletedBy,DateCreated,CreatedBy,LastModified,ModifiedBy,Id")] Match match)
+        public async Task<IActionResult> Create(Match match)
         {
-            if (ModelState.IsValid)
+            var overlap = _context.Matches.Any(a => a.DateAndStartTime < match.DateAndEndTime && match.DateAndStartTime < a.DateAndEndTime && match.CourtId == a.CourtId);
+
+            if (!overlap)
             {
                 _context.Add(match);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            match.ErrorMessage = "Teren koji pokusavate rezervirati je zauzet, pokusajte drugi termin ili drugi teren.";
             return View(match);
         }
 
@@ -148,6 +155,23 @@ namespace TC.MVC.Controllers
         private bool MatchExists(long id)
         {
             return _context.Matches.Any(e => e.Id == id);
+        }
+
+        public IEnumerable<SelectListItem> FillDropdownCourts()
+        {
+            var listForDisplay = new List<SelectListItem>();
+
+            listForDisplay.Add(new SelectListItem()
+            {
+                Text = "Odaberite..",
+                Value = ""
+            });
+            var courtTypes = _context.Courts.ToList();
+            foreach (var item in courtTypes)
+            {
+                listForDisplay.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
+            return listForDisplay;
         }
     }
 }
