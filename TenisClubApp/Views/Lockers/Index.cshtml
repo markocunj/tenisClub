@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TC.DomainModels.Models.Locker>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lockers";
 }
 
 <h1>Lockers</h1>
@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.MemberId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RentedFrom)
+                Rented from
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RentedUntil)
+                Rented until
             </th>
         </tr>
     </thead>

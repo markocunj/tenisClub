@@ -1,29 +1,42 @@
 ﻿@model IEnumerable<TC.DomainModels.Models.Match>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Matches";
 }
 
-<h1>Index</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <h1>
+                    Termini
+                </h1>
+            </div>
+        </div>
+        <div class="col-md-6 text-right">
+            <h1>
+                <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
+            </h1>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Start date and time</th>
+                <th>End date and time</th>
+                <th>Court ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DateAndStartTime</td>
+                    <td>@item.DateAndEndTime</td>
+                    <td>@item.CourtId (visit <a asp-action="Index" asp-controller="Courts">Courts</a>)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Start date and time</th>
-            <th>End date and time</th>
-            <th>Court ID</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@item.DateAndStartTime</td>
-            <td>@item.DateAndEndTime</td>
-            <td>@item.CourtId (visit <a asp-action="Index" asp-controller="Courts">Courts</a>)</td>
-        </tr>
-}
-    </tbody>
-</table>
